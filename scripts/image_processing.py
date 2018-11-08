@@ -17,7 +17,7 @@ hotspot_detection = Int32()
 def callback(data):
 	frame_data = numpy.zeros((60,80), dtype= numpy.uint8)
 	count=0
-	vmax = 8400
+	vmax = 8100
 	vmin = 7600
 	for i in range (0,60):
 		for j in range (0,80):
@@ -34,7 +34,7 @@ def callback(data):
 	blurred = cv2.GaussianBlur(frame_data, (15, 15), 0)
 
 	#Realiza um threshold para revelar os pontos quentes
-	thresh = cv2.threshold(blurred, 150, 255, cv2.THRESH_BINARY)[1]
+	thresh = cv2.threshold(blurred, 130, 255, cv2.THRESH_BINARY)[1]
 
 	# Realiza uma serie de erosoes e dilatacoes para remover ruido da imagem binarizada
 	thresh = cv2.erode(thresh, None, iterations=1)
@@ -53,13 +53,13 @@ def callback(data):
 	#cv2.drawContours(frame_data, contours, -1, (255,0,0), 2)
 
 	for c in contours:
-		if cv2.contourArea(c) < 3000:
-			continue
+		# if cv2.contourArea(c) < 50000:
+		# 	continue
 
 		## BEGIN - draw rotated rectangle
 		rect = cv2.minAreaRect(c)
 		box = cv2.boxPoints(rect)
-		box = np.int0(box)
+		box = numpy.int0(box)
 		cv2.drawContours(frame_data,[box],0,(0,191,255),2)
 	
 	count = 0
