@@ -7,7 +7,7 @@ import rospy
 from rospy.numpy_msg import numpy_msg
 from rospy_tutorials.msg import Floats
 
-com = serial.Serial('/dev/ttyACM0',baudrate = 921600)
+com = serial.Serial('/dev/stmf4',baudrate = 921600)
 
 frame_data = numpy.zeros(4800,dtype=numpy.float32)
 
